@@ -1,2 +1,0 @@
-# friendsandgames
-Created with CodeSandbox
