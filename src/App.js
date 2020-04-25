@@ -152,10 +152,10 @@ const games = [
 
 export default function App() {
   return (
-    <div className="App p-8">
+    <div className="App md:p-8 p-2">
       <center className="py-8">
-        <div className="text-6xl mx-auto font-semibold text-gray-800">
-          <span role="img" aria-label="Icon">
+        <div className="md:text-6xl text-4xl mx-auto font-bold text-gray-800">
+          <span role="img" aria-label="Icon" className="text-6xl">
             🎲
           </span>
           <br />
@@ -169,10 +169,12 @@ export default function App() {
       <div className="max-w-4xl mx-auto">
         {games.map(category => (
           <div className={`p-2`} key={category.name}>
-            <div className={`pl-2 py-2 font-semibold text-4xl text-gray-700`}>
+            <div
+              className={`pl-2 py-2 font-semibold text-2xl md:text-4xl text-gray-700`}
+            >
               {category.name}
             </div>
-            <div className="grid grid-cols-2 gap-4 items-stretch">
+            <div className="grid md:grid-cols-2 gap-4 items-stretch">
               {category.games.map((game, i) =>
                 !game ? (
                   <div className="flex-1 m-2" />
@@ -181,7 +183,7 @@ export default function App() {
                     <div
                       className={`h-full bg-${
                         category.color
-                      }-200 rounded-b -ml-2 hover:shadow-xl rounded p-8 flex flex-col justify-between leading-normal hover:scale-105 transform transition duration-100 ease-in-out`}
+                      }-200 rounded-b -ml-2 hover:shadow-xl rounded md:p-8 p-4 flex flex-col justify-between leading-normal hover:scale-105 transform transition duration-100 ease-in-out`}
                     >
                       <div className="flex flex-col h-full">
                         <div className="mb-8">
