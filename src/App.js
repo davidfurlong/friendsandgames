@@ -5,11 +5,12 @@ const games = [
   {
     name: "Quick and easy games for 4+ players",
     color: "indigo",
+    hex: ["#EBF4FF", "#C3DAFE"],
     games: [
       {
         name: "Codenames",
         via: "horsepaste.com",
-        description: `Two teams compete to give clues about and guess words on the shared board.`,
+        description: `Split into two teams and give clues to your team to help the guess which word belongs to your team on a shared board filled with words.`,
         url: "https://www.horsepaste.com/",
         video: "https://www.youtube.com/watch?v=zQVHkl8oQEU"
       },
@@ -45,6 +46,7 @@ const games = [
   {
     name: "Games that take a bit longer to learn and play",
     color: "green",
+    hex: ["#F0FFF4", "#C6F6D5"],
     games: [
       {
         name: "Avalon",
@@ -94,6 +96,7 @@ const games = [
   {
     name: "Best for 2 or 3 players",
     color: "pink",
+    hex: ["#FFF5F7", "#FED7E2"],
     games: [
       {
         name: "Scrabble",
@@ -123,6 +126,7 @@ const games = [
   {
     name: "Drinking games",
     color: "orange",
+    hex: ["#FFFAF0", "#FEEBC8"],
     games: [
       {
         name: "Picolo",
@@ -181,9 +185,13 @@ export default function App() {
                 ) : (
                   <div key={game.name} className="flex-1 m-4">
                     <div
-                      className={`h-full bg-${
-                        category.color
-                      }-200 rounded-b -ml-2 hover:shadow-xl rounded md:p-8 p-4 flex flex-col justify-between leading-normal hover:scale-105 transform transition duration-100 ease-in-out`}
+                      style={{
+                        borderRadius: "20px",
+                        background: `linear-gradient(-121.72deg, ${
+                          category.hex[0]
+                        } 0%,${category.hex[1]} 100%)`
+                      }}
+                      className={`h-full -ml-2 text-xl hover:shadow-xl md:p-8 p-4 flex flex-col justify-between hover:scale-105 transform transition duration-100 ease-in-out`}
                     >
                       <div className="flex flex-col h-full">
                         <div className="mb-8">
@@ -198,9 +206,8 @@ export default function App() {
                             </span>
                           )}
                           <div
-                            className={`text-${
-                              category.color
-                            }-700 font-bold text-xl mb-6`}
+                            style={{ color: "#272750" }}
+                            className={`font-bold mb-6`}
                           >
                             {/* <div
                               className={`text-4xl bg-white inline-block rounded-full h-16 w-16 flex items-center justify-center text-${
@@ -209,7 +216,7 @@ export default function App() {
                             >
                               {i + 1}
                             </div>{" "} */}
-                            <span className="text-4xl inline-block">
+                            <span className="text-2xl inline-block leading-none">
                               {game.name}
                             </span>
                             {/* {game.via && (
@@ -221,18 +228,19 @@ export default function App() {
                               </span>
                             )} */}
                           </div>
-                          <p className={`text-${category.color}-500 text-xl`}>
+                          <p className={`text-xl`} style={{ color: "#525273" }}>
                             {game.description}
                           </p>
                         </div>
                         <div className="flex stretch-items mt-auto">
                           <a
                             href={game.url}
-                            className={`w-full flex items-center justify-center py-1 border border-transparent text-base leading-6 font-medium rounded-md bg-${
+                            style={{ borderRadius: "20px" }}
+                            className={`w-full flex items-center justify-center border border-transparent text-base leading-6 font-medium bg-${
                               category.color
-                            }-700 text-${
+                            }-600 hover:bg-${category.color}-700 text-${
                               category.color
-                            }-100 hover:shadow-md focus:outline-none focus:shadow-outline transition duration-150 ease-in-out md:py-4 md:text-lg`}
+                            }-100 hover:shadow-md focus:outline-none focus:shadow-outline transition duration-150 ease-in-out py-4 md:text-lg`}
                           >
                             Start a game
                           </a>
@@ -241,11 +249,12 @@ export default function App() {
                               target="_blank"
                               rel="noopener noreferrer"
                               href={game.video}
-                              className={`ml-4 w-full flex items-center justify-center py-1 border border-transparent text-base leading-6 font-medium rounded-md text-${
+                              style={{ borderRadius: "20px" }}
+                              className={`ml-4 w-full flex items-center justify-center border border-transparent text-base leading-6 font-medium text-${
                                 category.color
-                              }-700 bg-${
+                              }-700 bg-${category.color}-200 hover:bg-${
                                 category.color
-                              }-200 hover:shadow-md focus:outline-none focus:shadow-outline transition duration-150 ease-in-out md:py-4 md:text-lg`}
+                              }-300 hover:shadow-inner focus:outline-none focus:shadow-outline transition duration-150 ease-in-out py-4 md:text-lg`}
                             >
                               How to play
                             </a>
