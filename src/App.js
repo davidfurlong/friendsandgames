@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles.css";
 
 const games = [
@@ -118,9 +118,7 @@ const games = [
           "Hanabi is a cooperative game where you all are on the same team and you can see everyone else's cards, but not your own.",
         url: "https://hanabi.live/",
         video: "https://www.youtube.com/watch?v=d_js_3S_7K8"
-      },
-      null,
-      null
+      }
     ]
   },
   {
@@ -147,156 +145,123 @@ const games = [
           "For groups that just want to get told to drink over and over",
         url: "https://drunkpirate.co.uk/",
         video: ""
-      },
-      null,
-      null
+      }
     ]
   }
 ];
 
 export default function App() {
   return (
-    <div className="App md:p-8 p-2">
-      <center className="py-8">
-        <div className="md:text-6xl text-4xl mx-auto font-bold text-gray-800">
-          <span role="img" aria-label="Icon" className="text-6xl">
-            🎲
-          </span>
-          <br />
-          friendsand.games
-        </div>
-        <div className="text-gray-600 text-3xl max-w-screen-md">
-          Handselected free online games to play during calls with your friends
-          and family during this coronavirus crisis
-        </div>
-      </center>
+    <div className="App py-8">
       <div className="max-w-4xl mx-auto">
+        <div className="px-8 md:px-12 pb-4">
+          <div className="md:text-6xl text-4xl font-bold text-gray-800">
+            Friends and games
+            <span role="img" className="pl-4 md:pl-8" aria-label="Icon">
+              🎲
+            </span>
+          </div>
+          <div className="text-gray-600 text-2xl md:text-3xl max-w-screen-md">
+            A list of hand picked free online games to play during calls with
+            your friends or family during this coronavirus crisis
+          </div>
+        </div>
         {games.map(category => (
-          <div className={`p-2`} key={category.name}>
+          <div className={`py-4`} key={category.name}>
             <div
-              className={`pl-2 py-2 font-semibold text-2xl md:text-4xl text-gray-700`}
+              className={`px-8 md:px-12 py-2 font-bold text-3xl md:text-4xl text-gray-700`}
             >
               {category.name}
             </div>
-            <div className="grid md:grid-cols-2 gap-4 items-stretch">
-              {category.games.map((game, i) =>
-                !game ? (
-                  <div className="flex-1 m-2" />
-                ) : (
-                  <div key={game.name} className="flex-1 m-4">
-                    <div
-                      style={{
-                        borderRadius: "20px",
-                        background: `linear-gradient(-121.72deg, ${
-                          category.hex[0]
-                        } 0%,${category.hex[1]} 100%)`
-                      }}
-                      className={`h-full -ml-2 text-xl hover:shadow-xl md:p-8 p-4 flex flex-col justify-between hover:scale-105 transform transition duration-100 ease-in-out`}
-                    >
-                      <div className="flex flex-col h-full">
-                        <div className="mb-8">
-                          {game.players && (
-                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                              {game.players} players
-                            </span>
-                          )}
-                          {game.time && (
-                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                              {game.time} minutes
-                            </span>
-                          )}
-                          <div
-                            style={{ color: "#272750" }}
-                            className={`font-bold mb-6`}
-                          >
-                            {/* <div
-                              className={`text-4xl bg-white inline-block rounded-full h-16 w-16 flex items-center justify-center text-${
-                                category.color
-                              }-400`}
-                            >
-                              {i + 1}
-                            </div>{" "} */}
-                            <span className="text-2xl inline-block leading-none">
-                              {game.name}
-                            </span>
-                            {/* {game.via && (
-                              <span
-                                className={`italic text-${category.color}-200`}
-                              >
-                                {" "}
-                                via {game.via}
-                              </span>
-                            )} */}
-                          </div>
-                          <p className={`text-xl`} style={{ color: "#525273" }}>
-                            {game.description}
-                          </p>
+            <div className="grid md:grid-cols-2 items-stretch">
+              {category.games.map((game, i) => (
+                <div key={game.name} className="flex-1 m-4">
+                  <div
+                    style={{
+                      borderRadius: "20px",
+                      background: `linear-gradient(-121.72deg, ${
+                        category.hex[0]
+                      } 0%,${category.hex[1]} 100%)`
+                    }}
+                    className={`h-full text-xl hover:shadow-xl md:p-8 p-6 flex flex-col justify-between hover:scale-105 transform transition duration-100 ease-in-out`}
+                  >
+                    <div className="flex flex-col h-full">
+                      <div className="mb-8">
+                        <div
+                          style={{ color: "#272750" }}
+                          className={`font-bold mb-6`}
+                        >
+                          <span className="text-3xl inline-block leading-none">
+                            {game.name}
+                          </span>
                         </div>
-                        <div className="flex stretch-items mt-auto">
+                        <p className={`text-xl`} style={{ color: "#525273" }}>
+                          {game.description}
+                        </p>
+                      </div>
+                      <div className="flex stretch-items mt-auto">
+                        <a
+                          href={game.url}
+                          style={{ borderRadius: "20px" }}
+                          className={`w-full flex items-center justify-center border border-transparent text-base leading-6 font-medium bg-${
+                            category.color
+                          }-600 hover:bg-${category.color}-700 text-${
+                            category.color
+                          }-100 hover:shadow-md focus:outline-none focus:shadow-outline transition duration-150 ease-in-out py-4 md:text-lg`}
+                        >
+                          Start a game
+                        </a>
+                        {game.video && (
                           <a
-                            href={game.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={game.video}
                             style={{ borderRadius: "20px" }}
-                            className={`w-full flex items-center justify-center border border-transparent text-base leading-6 font-medium bg-${
+                            className={`ml-4 w-full flex items-center justify-center border border-transparent text-base leading-6 font-medium text-${
                               category.color
-                            }-600 hover:bg-${category.color}-700 text-${
+                            }-700 bg-${category.color}-200 hover:bg-${
                               category.color
-                            }-100 hover:shadow-md focus:outline-none focus:shadow-outline transition duration-150 ease-in-out py-4 md:text-lg`}
+                            }-300 hover:shadow-inner focus:outline-none focus:shadow-outline transition duration-150 ease-in-out py-4 md:text-lg`}
                           >
-                            Start a game
+                            How to play
                           </a>
-                          {game.video && (
-                            <a
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              href={game.video}
-                              style={{ borderRadius: "20px" }}
-                              className={`ml-4 w-full flex items-center justify-center border border-transparent text-base leading-6 font-medium text-${
-                                category.color
-                              }-700 bg-${category.color}-200 hover:bg-${
-                                category.color
-                              }-300 hover:shadow-inner focus:outline-none focus:shadow-outline transition duration-150 ease-in-out py-4 md:text-lg`}
-                            >
-                              How to play
-                            </a>
-                          )}
-                        </div>
+                        )}
                       </div>
                     </div>
                   </div>
-                )
-              )}
+                </div>
+              ))}
             </div>
           </div>
         ))}
-      </div>
-      <div className="pb-2 pt-16">
-        <a
-          href="https://twitter.com/davidvfurlong"
-          className="-ml-4 rounded-b hover:bg-gray-200 rounded p-4"
-        >
-          <svg
-            className="inline-block"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
+        <div className="pb-2 pt-16 px-8 md:px-12">
+          <a
+            href="https://twitter.com/davidvfurlong"
+            className="rounded-b hover:bg-gray-200 rounded p-4"
           >
-            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
-          </svg>
-        </a>
-        <a
-          href="mailto:dvfurlong@gmail.com"
-          className="mx-4 rounded-b hover:bg-gray-200 rounded p-4"
-        >
-          Suggest a game
-        </a>
-        <span className="mx-4 rounded-b rounded p-4 text-gray-600">
-          This site is my little weekend project to discover the best games and
-          share them. Made in Amsterdam{" "}
-          <span role="img" aria-label="Heart">
-            ❤️
+            <svg
+              className="inline-block"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+            </svg>
+          </a>
+          <a
+            href="mailto:dvfurlong@gmail.com"
+            className="mx-2 md:mx-4 rounded-b hover:bg-gray-200 rounded p-4"
+          >
+            Suggest a game
+          </a>
+          <span className="mx-2 md:mx-4 rounded-b rounded p-4 text-gray-600">
+            Made in Amsterdam{" "}
+            <span role="img" aria-label="Heart">
+              ❤️
+            </span>
           </span>
-        </span>
+        </div>
       </div>
     </div>
   );
